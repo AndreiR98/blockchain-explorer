@@ -6,6 +6,7 @@ class APIServices {
             dataHash: dataHash
         });
     }
+
 }
 
 export default APIServices;
