@@ -52,9 +52,9 @@ function SearchBar() {
                 {searchResult && (
                     <div className="mt-4">
                         {console.log(searchResult.data)}
-                        {searchResult.category === 'account' && <p>Account: <a href={`/address/${searchResult.data.accountAddress}`}>{searchResult.data.accountAddress}</a></p>}
-                        {searchResult.category === 'transaction' && <p>Transaction: <a href={`/transaction/${searchResult.data.transactionHash}`}>{searchResult.data.transactionHash}</a></p>}
-                        {searchResult.category === 'block' && <p>Block: <a href={`/block/${searchResult.data.blockIndex}`}>{searchResult.data.blockIndex}</a></p>}
+                        {searchResult.category === 'account' && <p>Account: <a href={`#/address/${searchResult.data.accountAddress}`}>{searchResult.data.accountAddress}</a></p>}
+                        {searchResult.category === 'transaction' && <p>Transaction: <a href={`#/transaction/${searchResult.data.transactionHash}`}>{searchResult.data.transactionHash}</a></p>}
+                        {searchResult.category === 'block' && <p>Block: <a href={`#/block/${searchResult.data.blockIndex}`}>{searchResult.data.blockIndex}</a></p>}
                     </div>
                 )}
             </div>

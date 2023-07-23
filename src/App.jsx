@@ -6,6 +6,8 @@ import {Routes,Route} from 'react-router-dom';
 import SearchBar from "./components/SearchBar.jsx";
 import DynamicMenu from "./components/DynamicMenu.jsx";
 import Transactions from "./pages/Transactions.jsx";
+import Account from "./pages/Account.jsx";
+import Blocks from "./pages/Blocks.jsx";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
 
       <Routes>
           <Route path="/transaction/:txHash" element={<Transactions />}></Route>
+          <Route path="/address/:address" element={<Account />}></Route>
+          <Route path="/block/:blockIndex" element={<Blocks />}></Route>
       </Routes>
         <DynamicMenu/>
       <div className="">

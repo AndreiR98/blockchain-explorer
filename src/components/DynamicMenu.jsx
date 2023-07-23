@@ -46,7 +46,7 @@ function DynamicMenu() {
             <div>
                 <h1>Last block index:</h1>
                 <ul>
-                    <a href={`/block/${blockIndex}`}>{blockIndex}</a>
+                    <a href={`#/block/${blockIndex}`}>{blockIndex}</a>
                 </ul>
                 <h1>Current target:
                     <ul>

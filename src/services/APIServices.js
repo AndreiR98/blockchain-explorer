@@ -7,6 +7,17 @@ class APIServices {
         });
     }
 
+    static searchTransactionHash(hash) {
+        return axios.get('http://localhost:7070/explorer/transaction/'+hash);
+    }
+
+    static searchAccountAddress(address) {
+        return axios.get('http://localhost:7070/explorer/address/'+address);
+    }
+
+    static searchBlockIndex(index) {
+        return axios.get('http://localhost:7070/explorer/block/'+index);
+    }
 }
 
 export default APIServices;
