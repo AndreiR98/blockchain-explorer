@@ -43,13 +43,13 @@ function DynamicMenu() {
             {/*    onError={handleError}*/}
             {/*/>*/}
 
-            <div>
+            <div className="font-body relative text-[1.1rem] flex space-x-3  lg3:w-[23rem] lg:w-[0rem] lg:right-[5rem] ss:right-[10rem] xss:right-[10rem] xs:right-[10rem] duration-1000 w-fit h-fit">
                 <h1>Last block index:</h1>
-                <ul>
+                <ul className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent">
                     <a href={`#/block/${blockIndex}`}>{blockIndex}</a>
                 </ul>
-                <h1>Current target:
-                    <ul>
+                <h1 className="flex ">Current target:
+                    <ul className="">
                         {messages.target}
                     </ul>
                 </h1>

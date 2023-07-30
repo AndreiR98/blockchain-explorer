@@ -23,14 +23,20 @@ const Account = () => {
     }, [address]);
 
     return (
-        <div>
-            <h2>Account:</h2>
+        <div className="absolute flex font-body top-[7rem] left-[15rem]   ">
             {result ? (
                 <ul>
-                    <li>Address {result.address}</li>
-                    <li>Balance: {result.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
-                    <li>Outbound amount: {result.outbound_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
-                    <li>Inbound amount: {result.inbound_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
+                    <div className="flex relative border-2 flex-col p-2  ">
+                        <h2>Account Details:</h2>
+                        <li>Address {result.address}</li>
+                    </div>
+                    <div className="flex relative border-2 rounded-lg bg-gradient-to-r mt-2 from-textcolor to-textcolor2">
+                        <li className="text-white ">Balance: {result.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
+                    </div>
+                    <div className="flex relative flex-col border-2 mt-2  ">
+                        <li>Outbound amount: {result.outbound_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
+                        <li>Inbound amount: {result.inbound_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
+                    </div>
                 </ul>
             ) : (
                 <p>Loading...</p>
