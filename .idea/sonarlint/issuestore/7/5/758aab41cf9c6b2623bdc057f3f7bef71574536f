@@ -1,7 +1,0 @@
-
-^javascript:S1481	"=Remove the declaration of the unused 'categoryType' variable.(½Ç±õùÿÿÿÿ
-[javascript:S1854	":Remove this useless assignment to variable "categoryType".(½Ç±õùÿÿÿÿ
-ajavascript:S1481	"@Remove the declaration of the unused 'setCategoryType' variable.(½Ç±õùÿÿÿÿ
-^javascript:S1854	"=Remove this useless assignment to variable "setCategoryType".(½Ç±õùÿÿÿÿ
-:javascript:S125"Remove this commented out code.(´¬ Ğ
-}javascript:S1172"aRemove the unused function parameter "error" or rename it to "_error" to make intention explicit.(Ò·ş

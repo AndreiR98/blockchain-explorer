@@ -7,6 +7,9 @@ const Blocks = () => {
     const { blockIndex } = useParams();
     const [result, setResult] = useState(null);
 
+    const transactionsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
         const fetchData = () => {
             APIServices.searchBlockIndex(blockIndex)
@@ -21,6 +24,19 @@ const Blocks = () => {
 
         fetchData();
     }, [blockIndex]);
+
+    //Logic to get the transactions for the current page
+    const indexOfLastTransaction = currentPage * transactionsPerPage;
+    const indexOfFirstTransaction = indexOfLastTransaction - transactionsPerPage;
+
+    const currentTransactions = Array.isArray(result?.transactions)
+        ? result.transactions.slice(indexOfFirstTransaction, indexOfLastTransaction)
+        : [];
+
+    // Function to handle page changes
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div className="flex absolute font-body lg:top-[10rem] lg:left-[20rem] xss:top-[10rem] xss:left-[12rem] duration-1000 ">
@@ -51,7 +67,7 @@ const Blocks = () => {
                                 )}
                             </li>
                             <li className="flex flex-col w-[22rem]">
-                                {result.index ==="0000000000000000000000000000000000000000000000000000000000000000" ? (
+                                {result.index === "0000000000000000000000000000000000000000000000000000000000000000" ? (
                                     <>
                                         Fork hash:
                                         <a className="flex break-all w-[20rem] hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent"
@@ -75,7 +91,7 @@ const Blocks = () => {
                             <li>Index: <a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent" href={`#/block/${result.index}`}>{result.index}</a></li>
 
                             <li>Miner:
-                                {result.index !==0 ? (
+                                {result.index !== 0 ? (
                                         <a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent"
                                            href={`#/address/${result.miner}`}>{result.miner}</a>
                                     ) : (
@@ -88,10 +104,25 @@ const Blocks = () => {
                         </div>
                         <div className="lg:absolute flex flex-col break-all w-[22rem] lg:top-[4rem] lg:left-[27rem]  duration-1000  space-y-1 ">
                             <li>Transactions :</li>
-                            {Array.isArray(result.transactions) &&
-                                result.transactions.map((transaction) => (
-                                    <li key={transaction}><a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent" href={`#/transaction/${transaction}`}>{transaction}</a></li>
-                                ))}
+                            {currentTransactions.map((transaction) => (
+                                <li key={transaction}>
+                                    <a
+                                        className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent"
+                                        href={`#/transaction/${transaction}`}
+                                    >
+                                        {transaction}
+                                    </a>
+                                </li>
+                            ))}
+                        </div>
+                        <div>
+                            {Array.from({ length: Math.ceil(result?.transactions?.length / transactionsPerPage) || 1 }, (_, index) => index + 1).map(
+                                (page) => (
+                                    <span key={page} onClick={() => handlePageChange(page)}>
+                                        {page}
+                                    </span>
+                                )
+                            )}
                         </div>
                     </div>
 

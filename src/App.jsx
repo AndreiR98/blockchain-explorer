@@ -10,6 +10,7 @@ import Account from "./pages/Account.jsx";
 import Blocks from "./pages/Blocks.jsx";
 import Home from "./pages/Home.jsx";
 import NavBar from "./components/NavBar.jsx";
+import SearchPage from "./components/SearchPage.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/transaction/:txHash" element={<Transactions />}></Route>
           <Route path="/address/:address" element={<Account />}></Route>
           <Route path="/block/:blockIndex" element={<Blocks />}></Route>
+          <Route path="/search" element={<SearchPage />}></Route>
       </Routes>
 
 

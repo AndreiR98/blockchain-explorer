@@ -25,8 +25,8 @@ export  const NavbarItems=[
     },
     {
         id: 4,
-        title: "Memepool",
-        path: "/memepool",
+        title: "Mempool",
+        path: "/mempool",
         className: "flex relative  w-fit hover:text-textcolor  ",
 
     },
