@@ -10,6 +10,11 @@ module.exports = {
         'textcolor':'#ff7e00',
         'textcolor2':'#fcac01',
 
+        'Shadow':'#313030',
+        'Shadow1':'#2a2a2a',
+        'box':'#fcac01',
+        'box2':'#ff7e00',
+
 
 
       },

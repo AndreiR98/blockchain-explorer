@@ -11,6 +11,7 @@ import Blocks from "./pages/Blocks.jsx";
 import Home from "./pages/Home.jsx";
 import NavBar from "./components/NavBar.jsx";
 import SearchPage from "./components/SearchPage.jsx";
+import Mempool from "./pages/Mempool.jsx";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         </div>
       <Routes>
           <Route path="/" exact element={<Home/>}></Route>
+          <Route path="/mempool" element={<Mempool/>}></Route>
           <Route path="/transaction/:txHash" element={<Transactions />}></Route>
           <Route path="/address/:address" element={<Account />}></Route>
           <Route path="/block/:blockIndex" element={<Blocks />}></Route>

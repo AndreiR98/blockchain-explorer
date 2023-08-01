@@ -115,11 +115,12 @@ const Blocks = () => {
                                 </li>
                             ))}
                         </div>
-                        <div>
+                        <div className="flex relative left-[41rem] w-fit h-fit">
+                            <h>Pages:</h>
                             {Array.from({ length: Math.ceil(result?.transactions?.length / transactionsPerPage) || 1 }, (_, index) => index + 1).map(
                                 (page) => (
-                                    <span key={page} onClick={() => handlePageChange(page)}>
-                                        {page}
+                                    <span className="hover:text-textcolor" key={page} onClick={() => handlePageChange(page)}>
+                                       ‎ {page}
                                     </span>
                                 )
                             )}
