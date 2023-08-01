@@ -49,7 +49,7 @@ const Transactions = () => {
                         <li>Transaction Index: {result.transaction_index}</li>
                         <li>Value: {result.value}</li>
                         <li>Nonce: {result.nonce}</li>
-                        <li>Time Stamp: {DataUtils.formatDateTime(result.time_stamp)}</li>
+                        <li>Time Stamp: {DataUtils.formatDateTime(result.time_stamp*1000)}</li>
                         <li>Confirmations: {result.confirmations}</li>
                         <li>Block Time: {DataUtils.formatDateTime(result.block_time)}</li>
                         <li>Transaction Status: {result.transaction_status}</li>
