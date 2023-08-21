@@ -29,7 +29,9 @@ function SearchPage() {
 
     return(
         <>
-            <div className="h-fit w-fit flex relative lg3: lg:right-[0rem] md2:right-[20rem] md1:right-[10rem] ss:right-[20rem]  duration-1000 ">
+            <div className="font-body text-black absolute flex top-[10rem] left-[20rem] w-fit h-fit  duration-1000 ">
+                <div></div>
+                <h1>Search result:</h1>
                 {searchResult && (
                     <div className="relative  flex ">
                         {console.log(searchResult.data)}

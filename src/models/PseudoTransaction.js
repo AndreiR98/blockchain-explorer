@@ -12,7 +12,7 @@ class PseudoTransaction {
         this.value = "";
         this.nonce = 0;
         this.timeStamp = 0;
-        this.fees = "";
+        this.fees = null;
         this.status = null;
         this.pubKeyHash = "";
         this.signature = null;
@@ -76,11 +76,15 @@ class PseudoTransaction {
             pub_key_hash: this.pubKeyHash,
         };
 
+        transactionJSON.fees = {fees: this.fees.fees, network_fees: this.fees.networkFees};
+
         const sortedKeys = Object.keys(transactionJSON).sort();
         const sortedFields = {};
         for (const key of sortedKeys) {
             sortedFields[key] = transactionJSON[key];
         }
+
+        console.log(JSON.stringify(sortedFields));
 
 
         const sha1 = SHA256(JSON.stringify(sortedFields)).toString();
@@ -106,6 +110,8 @@ class PseudoTransaction {
             pub_key_hash: this.pubKeyHash,
             signature: this.signature
         };
+
+        hashingFields.fees = {fees: this.fees.fees, network_fees: this.fees.networkFees};
 
         const sortedKeysHash = Object.keys(hashingFields).sort();
         const sortedFieldsHash = {};

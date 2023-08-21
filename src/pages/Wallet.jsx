@@ -19,6 +19,7 @@ const Wallet = ({ apiResponse }) => {
     const [showMessage, setShowMessage] = useState(false);
     const [pseudoTransaction, setPseudoTransaction] = useState('');
     const [accountBalance, setAccountBalance] = useState(0);
+    const [messageClass, setMessageClass] = useState('');
 
     const parsedResponse = JSON.parse(apiResponse);
 
@@ -37,17 +38,20 @@ const Wallet = ({ apiResponse }) => {
     const handleCreatePseudoTransaction = () => {
             if(privateKeyTransaction == null || privateKeyTransaction == '') {
                 setShowMessage(true);
-                setMessage("Private could not be null!");
+                setMessage("Private key could not be null!");
+                setMessageClass('ERROR');
             }
 
             if(to == null || to == '') {
                 setShowMessage(true);
                 setMessage("Receiver address could not be empty!");
+                setMessageClass('ERROR');
             }
 
-            if(value == null || value == '') {
+            if(value == null || value == '' || value <= 0) {
                 setShowMessage(true);
                 setMessage("Value must not be empty or negative!");
+                setMessageClass('ERROR');
             }
 
             if(privateKeyTransaction != null && privateKeyTransaction != '') {
@@ -55,6 +59,7 @@ const Wallet = ({ apiResponse }) => {
                 if(senderAddress === to) {
                     setShowMessage(true);
                     setMessage("Receiver address is the same as the sender!");
+                    setMessageClass('ERROR');
                 }
 
                 //Retrieve account balance
@@ -74,8 +79,10 @@ const Wallet = ({ apiResponse }) => {
                         if(accountBalanceDecimal.comparedTo(totalAmount) >= 0) {
                             setShowMessage(true);
                             setMessage((prev) => "Account balance("+accountBalance+") insufficient!");
+                            setMessageClass('ERROR');
                         }
 
+                        const feesJSON = {networkFees: networkFees, fees: fees};
 
 
                         const pseudoTransaction = new PseudoTransaction();
@@ -84,17 +91,25 @@ const Wallet = ({ apiResponse }) => {
                         pseudoTransaction.setVersion(0x16);
                         pseudoTransaction.setStatus(TransactionStatus.PENDING);
                         pseudoTransaction.setNonce(apiResponse.nonce);
-                        pseudoTransaction.setFees(totalFees);
-                        pseudoTransaction.setValue(totalAmount);
+                        pseudoTransaction.setFees(feesJSON);
+                        pseudoTransaction.setValue(new Decimal(value));
                         pseudoTransaction.setTimeStamp(Date.now());
 
                         pseudoTransaction.signPseudoTransaction("0x".concat(privateKeyTransaction));
 
+                        console.log(pseudoTransaction.toJSON());
+
                         APIServices.sendPseudoTransaction(pseudoTransaction.toJSON())
                             .then((transactionApiResponse) => {
+                                console.log(transactionApiResponse.data);
                                 if(transactionApiResponse.data.result === 'SUCCESS') {
                                     setShowMessage(true);
                                     setMessage((prev) => pseudoTransaction.getPseudoHash());
+                                    setMessageClass('SUCCESS');
+                                } else {
+                                    setShowMessage(true);
+                                    setMessage((prev) => pseudoTransaction.getPseudoHash());
+                                    setMessageClass('ERROR');
                                 }
                             })
 
@@ -130,10 +145,14 @@ const Wallet = ({ apiResponse }) => {
 
     return (
         <div className="absolute flex top-[18rem] left-[22rem]">
-            {showMessage && (<div>{message}</div>)}
+            {showMessage && (
+                <div className={`font-body absolute top-[-9rem] left-[-8rem] p-2 rounded-md border ${messageClass === 'SUCCESS' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
+                    {message}
+                </div>
+            )}
             <div className="font-body relative text-[1.1rem] flex space-x-10  lg3:w-[23rem] lg:w-[0rem] lg:right-[5rem] ss:right-[10rem] xss:right-[10rem] xs:right-[10rem]">
                 <div style={{ display: 'inline-flex' }}>
-                    <button className="flex relative bg-textcolor text-white px-4 py-2 rounded w-ift" onClick={handleClickAccount}>
+                    <button className="flex relative top-[-1rem] bg-textcolor text-white px-3 py-2 rounded w-ift" onClick={handleClickAccount}>
                         Create Account
                     </button>
                     {showAccount && (
@@ -143,7 +162,7 @@ const Wallet = ({ apiResponse }) => {
                                 top: '80px',
                                 left: '0px',
                                 background: 'white',
-                                padding: '5px',
+                                padding: '4px',
                                 display: 'inline-block',
                                 border: '1px solid #ccc', // Add a border
                                 boxShadow: '0 0 5px rgba(0, 0, 0, 0.2)', // Add a box shadow
@@ -188,7 +207,7 @@ const Wallet = ({ apiResponse }) => {
                     )}
                 </div>
                 <div className="flex inline left-[10rem]">
-                    <button className="flex relative bg-textcolor text-white px-4 py-2 rounded w-ift" onClick={handleClickTransaction}>
+                    <button className="flex relative bg-textcolor top-[-1rem] text-white px-4 py-2 rounded w-ift" onClick={handleClickTransaction}>
                         Send Coins
                     </button>
                     {showTransaction && (

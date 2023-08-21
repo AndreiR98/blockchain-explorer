@@ -1,3 +1,6 @@
+import bigInt from "big-integer";
+import Decimal from "decimal.js";
+
 class DataUtils {
     static parseResponseExplorer(responseData) {
         if (responseData.status === 'SUCCESS') {
@@ -26,6 +29,11 @@ class DataUtils {
         };
         return date.toLocaleString(undefined, options);
     };
+
+    static currencyFormat = (amount) => {
+        const formattedAmount = new Decimal(amount);
+        return '' + formattedAmount.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '0,')
+    }
 }
 
 export default DataUtils;

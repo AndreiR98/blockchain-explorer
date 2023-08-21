@@ -22,7 +22,7 @@ const App = () => {
         // Create a WebSocket connection when the component mounts
         //const socket = new WebSocket('ws://localhost:7071/stateChain');
 
-        const socket = new ReconnectingWebSocket('ws://localhost:7071/stateChain', [], {
+        const socket = new ReconnectingWebSocket('ws://3.8.20.9:8080/stateChain', [], {
             maxReconnectionDelay: 10000,
             minReconnectionDelay: 1000,
             reconnectionDelayGrowFactor: 1.3,

@@ -12,6 +12,7 @@ const Transactions = () => {
             APIServices.searchTransactionHash(txHash)
                 .then((response) => {
                     setResult(response.data);
+                    //console.log(response.data);
                 })
                 .catch((error) => {
                     // Handle error if needed
@@ -44,12 +45,13 @@ const Transactions = () => {
                     <div className="relative flex flex-col lg1:-top-[14rem] lg1:left-[35rem] lg:left-[0rem] lg:top-[14] duration-1000 border-2 p-2 ">
                         <p>Advanced Details</p>
                         <li>Block Number: <a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent " href={`#/block/${result.block_number}`}>{result.block_number}</a></li>
-                        <li>Fees: {result.fees}</li>
+                        <li>Fees: {result.fees.fees}</li>
+                        <li>Networking Fees: {result.fees.networkFees}</li>
                         <li>Version: {result.version}</li>
                         <li>Transaction Index: {result.transaction_index}</li>
                         <li>Value: {result.value}</li>
                         <li>Nonce: {result.nonce}</li>
-                        <li>Time Stamp: {DataUtils.formatDateTime(result.time_stamp*1000)}</li>
+                        <li>Time Stamp: {DataUtils.formatDateTime(result.time_stamp)}</li>
                         <li>Confirmations: {result.confirmations}</li>
                         <li>Block Time: {DataUtils.formatDateTime(result.block_time)}</li>
                         <li>Transaction Status: {result.transaction_status}</li>

@@ -31,7 +31,7 @@ const Account = () => {
                         <li>Address {result.address}</li>
                     </div>
                     <div className="flex relative border-2 rounded-lg bg-gradient-to-r mt-2 from-textcolor to-textcolor2">
-                        <li className="text-white ">Balance: {result.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>
+                        <li className="text-white ">Balance: {DataUtils.currencyFormat(result.balance)}</li>
                     </div>
                     <div className="flex relative flex-col border-2 mt-2  ">
                         <li>Outbound amount: {result.outbound_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</li>

@@ -6,15 +6,21 @@ import DataUtils from "../utils/DataUtils.js";
 const Blocks = () => {
     const { blockIndex } = useParams();
     const [result, setResult] = useState(null);
+    const [totalValue ,setTotalValue] = useState(0);
+    const [totalFees, setTotalFees] = useState(0);
 
     const transactionsPerPage = 5;
     const [currentPage, setCurrentPage] = useState(1);
+
+    console.log(blockIndex)
 
     useEffect(() => {
         const fetchData = () => {
             APIServices.searchBlockIndex(blockIndex)
                 .then((response) => {
                     setResult(response.data.block);
+                    setTotalFees(response.data.total_fees);
+                    setTotalValue(response.data.total_value);
                 })
                 .catch((error) => {
                     // Handle error if needed
@@ -46,20 +52,20 @@ const Blocks = () => {
 
                     <div className="relative flex flex-col p-2 border-2 space-y-[5px] lg:w-[50rem] h-fit  duration-1000  ">
                         <div className="relative flex border-2 text-xl mb-4  ">
-                            <li>Block:{result.index}</li>
+                            <li>Block:{result.header.index}</li>
                         </div>
                         <p className="relative flex mb-2 w-fit h-fit text-xl">Details:</p>
                         <div className="border-r-2 w-fit pr-2 space-y-1 ">
-                            <li className="flex break-all w-[22rem]">Hash: {result.hash}</li>
+                            <li className="flex break-all w-[22rem]">Hash: {result.header.hash}</li>
                             <li className="flex flex-col w-[22rem]">
-                                {result.index !== 0 ? (
+                                {result.header.index !== 0 ? (
                                     <>
                                         Previous hash:{" "}
                                         <a
                                             className="flex break-all w-[22rem] hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent "
-                                            href={`#/block/${result.previousHash}`}
+                                            href={`#/block/${result.header.previousHash}`}
                                         >
-                                            {result.previousHash}
+                                            {result.header.previousHash}
                                         </a>
                                     </>
                                 ) : (
@@ -67,7 +73,7 @@ const Blocks = () => {
                                 )}
                             </li>
                             <li className="flex flex-col w-[22rem]">
-                                {result.index === "0000000000000000000000000000000000000000000000000000000000000000" ? (
+                                {result.forkHash !== "0000000000000000000000000000000000000000000000000000000000000000" ? (
                                     <>
                                         Fork hash:
                                         <a className="flex break-all w-[20rem] hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent"
@@ -81,21 +87,26 @@ const Blocks = () => {
                                 )}
                             </li>
 
-                            <li>Version: {result.version}</li>
-                            <li className="flex flex-col w-[25rem] break-all">Markle root: {result.markleRoot}</li>
-                            <li>Time stamp: {DataUtils.formatDateTime(result.timeStamp)}</li>
-                            <li>Nonce: {result.nonce}</li>
+                            <li>Version: {result.header.version}</li>
+                            <li className="flex flex-col w-[25rem] break-all">Markle root: {result.header.markleRoot}</li>
+                            <li>Time stamp: {DataUtils.formatDateTime(result.header.timeStamp)}</li>
+                            <li>(<i>when mining started</i>)</li>
+                            <li>Block time: {DataUtils.formatDateTime(result.header.blockTime)}</li>
+                            <li>(<i>when mining finished</i>)</li>
+                            <li>Nonce: {result.header.nonce}</li>
                             {/*TODO:Implement check/format fetch for previous block index based on previousHash*/}
-                            <li>Difficulty: {result.difficulty}</li>
-                            <li>Reward: {result.reward}</li>
-                            <li>Index: <a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent" href={`#/block/${result.index}`}>{result.index}</a></li>
+                            <li>Difficulty: {result.header.difficulty}</li>
+                            <li>Reward: {result.header.reward}</li>
+                            <li>Total value: {totalValue}</li>
+                            <li>Total fees: {totalFees}</li>
+                            <li>Index: <a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent" href={`#/block/${result.header.index}`}>{result.header.index}</a></li>
 
                             <li>Miner:
-                                {result.index !== 0 ? (
+                                {result.header.index !== 0 ? (
                                         <a className="hover:bg-gradient-to-r from-textcolor to-textcolor2 bg-clip-text hover:text-transparent"
-                                           href={`#/address/${result.miner}`}>{result.miner}</a>
+                                           href={`#/address/${result.header.minerAddress}`}>{result.header.minerAddress}</a>
                                     ) : (
-                                     <>{result.miner}</>
+                                     <>{result.header.minerAddress}</>
                                     )}
                                 </li>
 

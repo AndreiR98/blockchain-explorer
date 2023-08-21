@@ -1,5 +1,5 @@
 {
-  "name": "t",
+  "name": "blockchain-explorer",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@stomp/stompjs": "^7.0.0",
     "axios": "^1.4.0",
+    "big-integer": "^1.6.51",
     "bigi": "^1.4.2",
     "bitcoin-address": "^0.3.0",
     "bitcoinjs-lib": "^6.1.3",
@@ -19,9 +20,13 @@
     "browserify": "^17.0.0",
     "buffer": "^6.0.3",
     "coinkey": "^3.0.0",
+    "concurrently": "^8.2.0",
     "crypto-js": "^4.1.1",
     "decimal.js": "^10.4.3",
     "ecdsa-secp256k1": "^1.0.6",
+    "http": "^0.0.1-security",
+    "http-proxy": "^1.18.1",
+    "mockttp": "^3.9.1",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -29,6 +34,7 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "^5.0.1",
     "reconnecting-websocket": "^4.4.0",
+    "stomp": "^0.1.1",
     "ws": "^8.13.0"
   },
   "devDependencies": {
